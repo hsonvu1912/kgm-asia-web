@@ -112,25 +112,30 @@ export const recentPosts = (n = 6) => posts.slice(0, n);
 // ---- pages ----
 export const page = (slug) => pages[slug] || null;
 export const aboutPage = pages['xay-nha-tron-goi'] || null;
-export const companyPage = pages['ho-so-cong-ty'] || null;
+export const companyPage = null; // ho-so-cong-ty bi nhiem data KimHome -> BO
 export const servicesPage = pages['dich-vu'] || null;
 export const servicesDetail = pages['thiet-ke-cong-trinh'] || null;
-export const recruitPage = pages['tuyen-dung'] || pages['tuyen-dung-3'] || null;
+export const recruitPage = pages['tuyen-dung-3'] || null; // tuyen-dung (cu) nhiem KimHome -> dung ban sach
 export const contactPage = pages['lien-he'] || null;
 
-// ---- nav (tieng Viet, map sang 2 site mau) ----
+// ---- nav chinh: 3 muc giong ref (Dich vu/Tin tuc/Tuyen dung gop vao Ve chung toi) ----
 export const navItems = [
   { label: 'Công trình', path: 'cong-trinh' },
-  { label: 'Dịch vụ', path: 'dich-vu' },
   { label: 'Về chúng tôi', path: 've-chung-toi' },
-  { label: 'Tin tức', path: 'tin-tuc' },
-  { label: 'Tuyển dụng', path: 'tuyen-dung' },
   { label: 'Liên hệ', path: 'lien-he' },
 ];
-
-// link nav cho 1 theme ('mq' | 'bda')
 export const navFor = (theme) =>
   navItems.map((n) => ({ label: n.label, url: href(`${theme}/${n.path}`), path: n.path }));
+
+// ---- sub-nav cua "Ve chung toi" (sidebar MQ) ----
+export const aboutSub = [
+  { label: 'Giới thiệu', path: 've-chung-toi' },
+  { label: 'Dịch vụ', path: 'dich-vu' },
+  { label: 'Tin tức', path: 'tin-tuc' },
+  { label: 'Tuyển dụng', path: 'tuyen-dung' },
+];
+export const aboutNavFor = (theme) =>
+  aboutSub.map((n) => ({ label: n.label, url: href(`${theme}/${n.path}`), path: n.path }));
 
 // ---- lam sach HTML WP (bo style Flatsome, giu cau truc co ban) ----
 export function cleanHtml(html = '') {
@@ -148,6 +153,9 @@ export function cleanHtml(html = '') {
       return `<img src="${src}" loading="lazy" alt="">`;
     })
     .replace(/\s(class|style|id|width|height|sizes|srcset|loading|decoding|data-[\w-]+|role|aria-[\w-]+)=["'][^"']*["']/gi, '')
+    // SCRUB: xoa moi khoi van ban con chua 'kimhome' (data lan tu site khac), roi xoa token con sot
+    .replace(/<(p|li|h[1-6]|td|tr|blockquote)[^>]*>(?:(?!<\/\1>)[\s\S])*?kim\s*home(?:(?!<\/\1>)[\s\S])*?<\/\1>/gi, '')
+    .replace(/kim\s*home/gi, '')
     .replace(/<(p|h2|h3|h4|li)>\s*(&nbsp;|\s)*<\/\1>/gi, '')
     .replace(/\n{3,}/g, '\n\n')
     .trim();

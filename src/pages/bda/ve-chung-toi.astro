@@ -1,6 +1,8 @@
 ---
 import BdaLayout from '../../layouts/BdaLayout.astro';
-import { aboutPage, companyPage, projectTypes, titleVi, cleanHtml, href } from '../../lib/content.js';
+import { aboutPage, servicesPage, servicesDetail, recruitPage, projectTypes, titleVi, recentPosts, cleanHtml, href, site } from '../../lib/content.js';
+const news = recentPosts(6);
+const fmt = (d) => { const t = new Date(d); return `${String(t.getDate()).padStart(2,'0')}/${String(t.getMonth()+1).padStart(2,'0')}/${t.getFullYear()}`; };
 ---
 <BdaLayout title="Về chúng tôi" active="ve-chung-toi">
   <div style="max-width:720px">
@@ -9,16 +11,33 @@ import { aboutPage, companyPage, projectTypes, titleVi, cleanHtml, href } from '
 
     <div class="lbl">Giới thiệu</div>
     {aboutPage && <div class="rich" set:html={cleanHtml(aboutPage.html)} />}
-    {companyPage && <div class="rich" set:html={cleanHtml(companyPage.html)} />}
 
     <div class="lbl">Năng lực</div>
-    <div class="rich">
-      <ul>
-        {projectTypes.map((t) => <li>{titleVi(t.name)} ({t.count} công trình)</li>)}
-      </ul>
-    </div>
+    <div class="rich"><ul>{projectTypes.map((t) => <li>{titleVi(t.name)} — {t.count} công trình</li>)}</ul></div>
 
-    <div class="lbl">Thêm</div>
-    <p class="rich"><a href={href('bda/su-kien')} style="border-bottom:1px solid var(--muted)">Sự kiện →</a></p>
+    <div class="lbl">Dịch vụ</div>
+    {servicesPage && <div class="rich" set:html={cleanHtml(servicesPage.html)} />}
+    {servicesDetail && <div class="rich" set:html={cleanHtml(servicesDetail.html)} />}
+
+    <div class="lbl">Tuyển dụng</div>
+    {recruitPage && recruitPage.text.length > 60 ? (
+      <div class="rich" set:html={cleanHtml(recruitPage.html)} />
+    ) : (
+      <p class="rich">KGM Asia luôn chào đón cộng sự đam mê kiến trúc, nội thất, cảnh quan. Gửi hồ sơ: <a href={`mailto:${site.email}`}>{site.email}</a> · {site.phone}</p>
+    )}
+  </div>
+
+  <div style="max-width:860px;margin-top:8px">
+    <div class="lbl">Tin tức</div>
+    <div class="bda-news">
+      {news.map((p) => (
+        <a class="item" href={href(`bda/tin-tuc/${p.slug}`)}>
+          <div class="ph">{p.image && <img src={p.image} alt={p.title} loading="lazy" />}</div>
+          <div class="nm">{p.title}</div>
+          <div class="dt">{fmt(p.date)}</div>
+        </a>
+      ))}
+    </div>
+    <p class="rich" style="margin-top:10px"><a href={href('bda/tin-tuc')} style="border-bottom:1px solid var(--muted)">Xem tất cả tin tức →</a></p>
   </div>
 </BdaLayout>

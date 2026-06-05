@@ -199,7 +199,7 @@ async function main() {
   // 5) SITE (lien he / social)
   const site = {
     name: 'KGM Asia',
-    legalName: 'CONG TY TNHH KHONG GIAN MOI',
+    legalName: 'CÔNG TY TNHH KHÔNG GIAN MỚI',
     tagline: 'Architect · Interior · Landscape',
     phone: '+84 936 357 288',
     phoneRaw: '+84936357288',

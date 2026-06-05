@@ -1,10 +1,12 @@
 ---
 import MqLayout from '../../layouts/MqLayout.astro';
+import AboutSide from '../../components/mq/AboutSide.astro';
 import { posts, href } from '../../lib/content.js';
 const fmt = (d) => { const t = new Date(d); return `${String(t.getDate()).padStart(2,'0')}/${String(t.getMonth()+1).padStart(2,'0')}/${t.getFullYear()}`; };
 ---
-<MqLayout title="Tin tức" active="tin-tuc">
-  <div class="page no-side">
+<MqLayout title="Tin tức" active="ve-chung-toi">
+  <div class="page">
+    <AboutSide active="tin-tuc" />
     <div class="content">
       <h1 class="h-sec">Tin tức</h1>
       <div class="news-grid">

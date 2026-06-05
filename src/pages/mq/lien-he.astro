@@ -1,33 +1,29 @@
 ---
 import MqLayout from '../../layouts/MqLayout.astro';
 import Social from '../../components/Social.astro';
-import { site, mapEmbedUrl, href } from '../../lib/content.js';
+import { site, href } from '../../lib/content.js';
+const directions = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapQuery)}`;
 ---
 <MqLayout title="Liên hệ" active="lien-he">
   <div class="page">
     <aside class="side">
       <a class="active">Văn phòng</a>
-      <a href={href('mq/tuyen-dung')}>Tuyển dụng</a>
+      <a href={href('mq/ve-chung-toi')}>Về chúng tôi</a>
       <Social />
     </aside>
     <div class="content">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px" class="contact-cols">
-        <div>
-          <h2 class="h-sec">Hà Nội</h2>
-          <p class="credits" style="font-size:15px;line-height:2">
-            {site.legalName}<br />
-            {site.address}<br />
-            Điện thoại: <a href={`tel:${site.phoneRaw}`}><b>{site.phone}</b></a><br />
-            Email: <a href={`mailto:${site.email}`}>{site.email}</a><br />
-            Zalo: {site.zalo}
-          </p>
-          <div style="margin-top:18px"><Social /></div>
-        </div>
-        <div>
-          <iframe title="Bản đồ KGM Asia" src={mapEmbedUrl} style="width:100%;height:300px;border:1px solid var(--line)" loading="lazy"></iframe>
-        </div>
-      </div>
+      <h2 class="contact-h">Hà Nội</h2>
+      <p class="contact-addr">
+        {site.legalName}<br />
+        {site.address}<br />
+        <a href={directions} target="_blank" rel="noopener" class="gd">Chỉ đường ↗</a>
+      </p>
+      <p class="contact-addr">
+        Điện thoại: <a href={`tel:${site.phoneRaw}`}>{site.phone}</a><br />
+        Email: <a href={`mailto:${site.email}`}>{site.email}</a><br />
+        Zalo: {site.zalo}
+      </p>
+      <div style="margin-top:18px"><Social /></div>
     </div>
   </div>
-  <style>@media (max-width:760px){.contact-cols{grid-template-columns:1fr !important}}</style>
 </MqLayout>

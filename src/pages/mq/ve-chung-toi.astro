@@ -1,21 +1,20 @@
 ---
 import MqLayout from '../../layouts/MqLayout.astro';
-import Social from '../../components/Social.astro';
-import { aboutPage, companyPage, cleanHtml, href } from '../../lib/content.js';
+import AboutSide from '../../components/mq/AboutSide.astro';
+import { aboutPage, projectTypes, cleanHtml } from '../../lib/content.js';
 ---
 <MqLayout title="Về chúng tôi" active="ve-chung-toi">
   <div class="page">
-    <aside class="side">
-      <a class="active">Giới thiệu</a>
-      <a href={href('mq/dich-vu')}>Dịch vụ</a>
-      <a href={href('mq/su-kien')}>Sự kiện</a>
-      <a href={href('mq/tuyen-dung')}>Tuyển dụng</a>
-      <Social />
-    </aside>
+    <AboutSide active="ve-chung-toi" />
     <div class="content">
-      <h1 class="h-sec">Hồ sơ công ty</h1>
+      <h1 class="h-sec">Về chúng tôi</h1>
       {aboutPage && <div class="rich" set:html={cleanHtml(aboutPage.html)} />}
-      {companyPage && <div class="rich" set:html={cleanHtml(companyPage.html)} />}
+      <h2 class="h-sec" style="margin-top:36px">Năng lực</h2>
+      <div class="rich">
+        <ul>
+          {projectTypes.map((t) => <li>{t.name} — {t.count} công trình</li>)}
+        </ul>
+      </div>
     </div>
   </div>
 </MqLayout>

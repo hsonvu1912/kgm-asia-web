@@ -1,20 +1,19 @@
 ---
 import MqLayout from '../../../layouts/MqLayout.astro';
-import { posts, getPost, cleanHtml, href } from '../../../lib/content.js';
+import AboutSide from '../../../components/mq/AboutSide.astro';
+import { posts, cleanHtml } from '../../../lib/content.js';
 export function getStaticPaths() {
   return posts.filter((p) => p.slug).map((p) => ({ params: { slug: p.slug }, props: { post: p } }));
 }
 const { post } = Astro.props;
 const fmt = (d) => { const t = new Date(d); return `${String(t.getDate()).padStart(2,'0')}/${String(t.getMonth()+1).padStart(2,'0')}/${t.getFullYear()}`; };
 ---
-<MqLayout title={post.title} active="tin-tuc">
+<MqLayout title={post.title} active="ve-chung-toi">
   <div class="page">
-    <aside class="side">
-      <a href={href('mq/tin-tuc')}>← Tin tức</a>
-    </aside>
+    <AboutSide active="tin-tuc" />
     <div class="content">
-      <h1 style="font-size:28px;font-weight:700;line-height:1.3;margin:0 0 6px">{post.title}</h1>
-      <div class="dt" style="color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;font-size:12px;margin-bottom:20px">{fmt(post.date)}</div>
+      <h1 style="font-size:24px;font-weight:700;line-height:1.3;margin:0 0 6px;color:var(--ink)">{post.title}</h1>
+      <div style="color:var(--muted2);text-transform:uppercase;letter-spacing:.5px;font-size:12px;margin-bottom:20px">{fmt(post.date)}</div>
       <div class="rich" set:html={cleanHtml(post.html)} />
     </div>
   </div>

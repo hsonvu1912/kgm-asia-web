@@ -1,23 +1,20 @@
 ---
 import MqLayout from '../../layouts/MqLayout.astro';
-import Social from '../../components/Social.astro';
-import { recruitPage, cleanHtml, href, site } from '../../lib/content.js';
+import AboutSide from '../../components/mq/AboutSide.astro';
+import { recruitPage, cleanHtml, site } from '../../lib/content.js';
 ---
-<MqLayout title="Tuyển dụng" active="tuyen-dung">
+<MqLayout title="Tuyển dụng" active="ve-chung-toi">
   <div class="page">
-    <aside class="side">
-      <a href={href('mq/ve-chung-toi')}>Giới thiệu</a>
-      <a href={href('mq/dich-vu')}>Dịch vụ</a>
-      <a href={href('mq/su-kien')}>Sự kiện</a>
-      <a class="active">Tuyển dụng</a>
-      <Social />
-    </aside>
+    <AboutSide active="tuyen-dung" />
     <div class="content">
       <h1 class="h-sec">Tuyển dụng</h1>
-      {recruitPage ? (
+      {recruitPage && recruitPage.text.length > 60 ? (
         <div class="rich" set:html={cleanHtml(recruitPage.html)} />
       ) : (
-        <p class="rich">Ứng tuyển tại KGM Asia — gửi CV về <a href={`mailto:${site.email}`}><b>{site.email}</b></a> hoặc gọi {site.phone}.</p>
+        <div class="rich">
+          <p>KGM Asia luôn chào đón những cộng sự đam mê kiến trúc, nội thất và cảnh quan. Gửi hồ sơ về:</p>
+          <p>Email: <a href={`mailto:${site.email}`}><b>{site.email}</b></a><br />Hotline: {site.phone}</p>
+        </div>
       )}
     </div>
   </div>

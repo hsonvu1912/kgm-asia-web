@@ -1,0 +1,10 @@
+---
+import Social from '../Social.astro';
+import { aboutNavFor } from '../../lib/content.js';
+const { active = '' } = Astro.props;
+const items = aboutNavFor('mq');
+---
+<aside class="side">
+  {items.map((n) => <a href={n.url} class={active === n.path ? 'active' : ''}>{n.label}</a>)}
+  <Social />
+</aside>
