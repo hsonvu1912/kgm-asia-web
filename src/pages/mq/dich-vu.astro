@@ -1,0 +1,20 @@
+---
+import MqLayout from '../../layouts/MqLayout.astro';
+import Social from '../../components/Social.astro';
+import { servicesPage, servicesDetail, cleanHtml, href } from '../../lib/content.js';
+---
+<MqLayout title="Dịch vụ" active="dich-vu">
+  <div class="page">
+    <aside class="side">
+      <a href={href('mq/ve-chung-toi')}>Giới thiệu</a>
+      <a class="active">Dịch vụ</a>
+      <a href={href('mq/tuyen-dung')}>Tuyển dụng</a>
+      <Social />
+    </aside>
+    <div class="content">
+      <h1 class="h-sec">Dịch vụ</h1>
+      {servicesPage && <div class="rich" set:html={cleanHtml(servicesPage.html)} />}
+      {servicesDetail && <div class="rich" set:html={cleanHtml(servicesDetail.html)} />}
+    </div>
+  </div>
+</MqLayout>

@@ -1,0 +1,37 @@
+---
+import BdaLayout from '../../layouts/BdaLayout.astro';
+import { projects, projectTypes, titleVi, href } from '../../lib/content.js';
+---
+<BdaLayout title="Công trình" active="cong-trinh">
+  <h1 class="page-h">Công trình</h1>
+  <div class="works-head">
+    <span class="fil" id="bdaFilter">
+      <span style="color:var(--muted2)">Lọc theo loại:</span>
+      <a class="active" data-k="all" href="#">Tất cả</a>
+      {projectTypes.map((t) => <a data-k={t.key} href="#">{titleVi(t.name)}</a>)}
+    </span>
+  </div>
+  <div class="works" id="bdaWorks">
+    {projects.map((p) => (
+      <a class="work" data-type={p.typeKey} href={href(`bda/cong-trinh/${p.slug}`)}>
+        <div class="ph"><img src={p.cover} alt={p.name} loading="lazy" /></div>
+        <div class="nm">{p.name}</div>
+        <div class="ct">{titleVi(p.type)}{p.place ? ` · ${p.place}` : ''}</div>
+      </a>
+    ))}
+  </div>
+
+  <script>
+    const links = document.querySelectorAll('#bdaFilter a');
+    const works = document.querySelectorAll('#bdaWorks .work');
+    links.forEach((l) =>
+      l.addEventListener('click', (e) => {
+        e.preventDefault();
+        links.forEach((x) => x.classList.remove('active'));
+        l.classList.add('active');
+        const k = l.dataset.k;
+        works.forEach((w) => { w.style.display = k === 'all' || w.dataset.type === k ? '' : 'none'; });
+      })
+    );
+  </script>
+</BdaLayout>

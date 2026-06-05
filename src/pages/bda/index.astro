@@ -1,0 +1,37 @@
+---
+import BdaLayout from '../../layouts/BdaLayout.astro';
+import Social from '../../components/Social.astro';
+import { heroSlides, href } from '../../lib/content.js';
+const slides = heroSlides.slice(0, 8);
+---
+<BdaLayout title="Trang chủ" variant="home">
+  <section class="bda-home" id="bdaHome">
+    {slides.map((s, i) => (
+      <a
+        class={`slide ${i === 0 ? 'on' : ''}`}
+        href={href(`bda/cong-trinh/${s.slug}`)}
+        style={`background-image:url('${s.img}')`}
+        aria-label={s.name}
+      ></a>
+    ))}
+    <Social />
+    <div class="h-cap">
+      <div class="n" id="bdaCapN">{slides[0]?.name}</div>
+      <div class="t" id="bdaCapT">{slides[0]?.type}{slides[0]?.place ? ` · ${slides[0].place}` : ''}</div>
+    </div>
+  </section>
+
+  <script define:vars={{ slides }}>
+    let i = 0;
+    const els = [...document.querySelectorAll('#bdaHome .slide')];
+    const capN = document.getElementById('bdaCapN');
+    const capT = document.getElementById('bdaCapT');
+    function show(n) {
+      i = (n + els.length) % els.length;
+      els.forEach((e, k) => e.classList.toggle('on', k === i));
+      const s = slides[i];
+      if (s) { capN.textContent = s.name; capT.textContent = s.type + (s.place ? ' · ' + s.place : ''); }
+    }
+    setInterval(() => show(i + 1), 5000);
+  </script>
+</BdaLayout>

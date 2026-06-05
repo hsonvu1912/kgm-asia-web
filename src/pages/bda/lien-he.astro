@@ -1,0 +1,31 @@
+---
+import BdaLayout from '../../layouts/BdaLayout.astro';
+import { site, mapEmbedUrl } from '../../lib/content.js';
+const directions = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(site.mapQuery)}`;
+---
+<BdaLayout title="Liên hệ" active="lien-he">
+  <div style="max-width:820px">
+    <h1 class="page-h">Liên hệ</h1>
+    <div class="contact-cols">
+      <div>
+        <h2>Văn phòng</h2>
+        <div class="v">
+          {site.legalName}<br />
+          {site.address}<br />
+          <a class="muted" href={directions} target="_blank" rel="noopener">Chỉ đường →</a>
+        </div>
+      </div>
+      <div>
+        <h2>Liên hệ</h2>
+        <div class="v">
+          <a href={`tel:${site.phoneRaw}`}>{site.phone}</a><br />
+          <a href={`mailto:${site.email}`}>{site.email}</a><br />
+          <span class="muted">Zalo: {site.zalo}</span>
+        </div>
+        <h2 style="margin-top:26px">Tuyển dụng</h2>
+        <div class="v"><a href={`mailto:${site.email}`}>{site.email}</a></div>
+      </div>
+    </div>
+    <iframe title="Bản đồ KGM Asia" src={mapEmbedUrl} style="width:100%;max-width:720px;height:320px;border:1px solid var(--line);margin-top:30px" loading="lazy"></iframe>
+  </div>
+</BdaLayout>

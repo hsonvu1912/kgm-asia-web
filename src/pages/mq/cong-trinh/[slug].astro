@@ -1,0 +1,76 @@
+---
+import MqLayout from '../../../layouts/MqLayout.astro';
+import { projects, projectTypes, href } from '../../../lib/content.js';
+export function getStaticPaths() {
+  return projects.filter((p) => p.slug).map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+}
+const { project } = Astro.props;
+const imgs = project.images.map((x) => x.full);
+const credits = [
+  ['Loại hình', project.type],
+  ['Địa điểm', project.place],
+  ['Phong cách', project.style],
+  ['Quy mô', project.scale],
+].filter(([, v]) => v);
+---
+<MqLayout title={project.name} active="cong-trinh">
+  <div class="page">
+    <aside class="side">
+      <a href={href('mq/cong-trinh')}>← Tất cả</a>
+      {projectTypes.map((t) => (
+        <a href={href('mq/cong-trinh')} class={t.key === project.typeKey ? 'active' : ''}>{t.name}</a>
+      ))}
+    </aside>
+    <div class="content detail">
+      <div class="stage">
+        <button class="arrow prev" id="mqPrev" aria-label="Trước">‹</button>
+        <img id="mqStage" src={imgs[0]} alt={project.name} />
+        <button class="arrow next" id="mqNext" aria-label="Sau">›</button>
+      </div>
+      {imgs.length > 1 && (
+        <div class="thumbs" id="mqThumbs">
+          {imgs.map((u, i) => (
+            <button class={i === 0 ? 'on' : ''} data-i={i} data-src={u} aria-label={`Ảnh ${i + 1}`}>
+              <img src={u} alt="" loading="lazy" />
+            </button>
+          ))}
+        </div>
+      )}
+      <h1 class="meta-title">{project.name}</h1>
+      <div class="meta-sub">{project.type}{project.place ? ` — ${project.place}` : ''}</div>
+      <div class="credits">
+        {credits.map(([k, v]) => <div><b>{k}:</b> {v}</div>)}
+      </div>
+      {project.text && (
+        <div class="rich" style="margin-top:22px">
+          <h2>Giới thiệu</h2>
+          <p>{project.text}</p>
+        </div>
+      )}
+    </div>
+  </div>
+
+  <script define:vars={{ imgs }}>
+    let i = 0;
+    const stage = document.getElementById('mqStage');
+    const thumbs = [...document.querySelectorAll('#mqThumbs button')];
+    function show(n) {
+      i = (n + imgs.length) % imgs.length;
+      stage.src = imgs[i];
+      thumbs.forEach((t, k) => t.classList.toggle('on', k === i));
+      thumbs[i]?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+    }
+    thumbs.forEach((t) => t.addEventListener('click', () => show(+t.dataset.i)));
+    document.getElementById('mqPrev')?.addEventListener('click', () => show(i - 1));
+    document.getElementById('mqNext')?.addEventListener('click', () => show(i + 1));
+    // vuot tren mobile
+    let x0 = null;
+    stage.addEventListener('touchstart', (e) => (x0 = e.touches[0].clientX), { passive: true });
+    stage.addEventListener('touchend', (e) => {
+      if (x0 === null) return;
+      const dx = e.changedTouches[0].clientX - x0;
+      if (Math.abs(dx) > 40) show(dx < 0 ? i + 1 : i - 1);
+      x0 = null;
+    });
+  </script>
+</MqLayout>

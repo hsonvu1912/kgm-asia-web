@@ -1,0 +1,56 @@
+---
+import '../styles/mq.css';
+import { navFor, site, href } from '../lib/content.js';
+const { title = 'KGM Asia', variant = 'inner', active = '' } = Astro.props;
+const nav = navFor('mq');
+const isHome = variant === 'home';
+---
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <title>{title} — KGM Asia</title>
+    <meta name="description" content="KGM Asia — thiết kế & thi công nội thất khách sạn, F&B, biệt thự. Hơn 1000 công trình trong và ngoài nước." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  </head>
+  <body class={isHome ? 'home-body' : ''}>
+    <header class={`mq-head ${isHome ? 'home' : 'inner'}`}>
+      <a class="brand" href={href('mq')} aria-label="KGM Asia — Trang chủ">
+        <span class="b1">KGM<span class="reg">®</span></span>
+        <span class="b2" style="font-weight:500;letter-spacing:3px;font-size:13px">ASIA</span>
+      </a>
+      <nav class="nav">
+        {nav.map((n) => <a href={n.url} class={active === n.path ? 'active' : ''}>{n.label}</a>)}
+      </nav>
+      <button class="burger" aria-label="Menu" id="mqBurger"><span></span><span></span><span></span></button>
+    </header>
+
+    <div class="m-menu" id="mqMenu">
+      <button class="close" id="mqClose" aria-label="Đóng">×</button>
+      {nav.map((n) => <a href={n.url}>{n.label}</a>)}
+    </div>
+
+    <slot />
+
+    <footer class="mq-foot">
+      <div class="row">
+        <span>{site.address}</span>
+        <a class="tel" href={`tel:${site.phoneRaw}`}>{site.phone}</a>
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </div>
+      <p style="margin:.6em 0 0;opacity:.8">© 2022 {site.legalName} · kgmasia.com</p>
+    </footer>
+
+    <script>
+      const b = document.getElementById('mqBurger');
+      const m = document.getElementById('mqMenu');
+      const c = document.getElementById('mqClose');
+      b?.addEventListener('click', () => m?.classList.add('open'));
+      c?.addEventListener('click', () => m?.classList.remove('open'));
+    </script>
+  </body>
+</html>

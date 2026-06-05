@@ -1,0 +1,36 @@
+---
+import BdaLayout from '../../../layouts/BdaLayout.astro';
+import { projects, titleVi, href } from '../../../lib/content.js';
+export function getStaticPaths() {
+  return projects.filter((p) => p.slug).map((p) => ({ params: { slug: p.slug }, props: { project: p } }));
+}
+const { project } = Astro.props;
+const imgs = project.images.map((x) => x.full);
+const idx = projects.findIndex((p) => p.slug === project.slug);
+const next = projects[(idx + 1) % projects.length];
+const meta = [
+  ['Loại hình', titleVi(project.type)],
+  ['Địa điểm', project.place],
+  ['Phong cách', project.style],
+  ['Quy mô', project.scale],
+].filter(([, v]) => v);
+---
+<BdaLayout title={project.name} active="cong-trinh">
+  <div class="bda-detail">
+    {imgs[0] && <div class="banner"><img src={imgs[0]} alt={project.name} /></div>}
+    <h1>{project.name}</h1>
+    <div class="sub">{titleVi(project.type)}</div>
+    <div class="meta">
+      {meta.map(([k, v]) => <div><span class="k">{k}</span> | {v}</div>)}
+    </div>
+    {project.text && <p class="desc">{project.text}</p>}
+    <div class="gallery">
+      {imgs.slice(1).map((u) => <img src={u} alt={project.name} loading="lazy" />)}
+    </div>
+    <div class="bda-foot-nav">
+      <a href={href('bda')}>← Trang chủ</a>
+      <a href={href('bda/cong-trinh')}>Về danh sách</a>
+      <a href={href(`bda/cong-trinh/${next.slug}`)}>Dự án tiếp →</a>
+    </div>
+  </div>
+</BdaLayout>

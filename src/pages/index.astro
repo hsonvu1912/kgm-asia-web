@@ -1,0 +1,73 @@
+---
+import { featured, href, site } from '../lib/content.js';
+const mqBg = featured[0]?.cover || '';
+const bdaBg = featured[3]?.cover || featured[1]?.cover || '';
+---
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <title>KGM Asia — Chọn phiên bản giao diện</title>
+    <meta name="description" content="KGM Asia — 2 phiên bản giao diện portfolio để lựa chọn." />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;600;800&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <style>
+      * { box-sizing: border-box; margin: 0; }
+      body { font-family: 'Inter', system-ui, sans-serif; color: #1a1a1a; }
+      .split { display: flex; min-height: 100vh; }
+      .pane { flex: 1; position: relative; display: flex; flex-direction: column; justify-content: flex-end;
+        padding: 48px; min-height: 50vh; overflow: hidden; text-decoration: none; transition: flex .4s ease; }
+      .pane .bg { position: absolute; inset: 0; background-size: cover; background-position: center; transition: transform .8s ease; z-index: 0; }
+      .pane:hover .bg { transform: scale(1.05); }
+      .pane .ov { position: absolute; inset: 0; z-index: 1; transition: opacity .3s; }
+      .pane .in { position: relative; z-index: 2; }
+      .pane.mq .ov { background: linear-gradient(0deg, rgba(0,0,0,.78), rgba(0,0,0,.35)); }
+      .pane.bda .ov { background: linear-gradient(0deg, rgba(255,255,255,.92), rgba(255,255,255,.55)); }
+      .pane.mq { color: #fff; }
+      .pane.bda { color: #2a2a2a; }
+      .pane:hover { flex: 1.25; }
+      .tag { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; opacity: .8; }
+      .name { font-size: clamp(28px, 4vw, 46px); font-weight: 800; line-height: 1.05; margin: 8px 0 6px; }
+      .mq .name { font-family: 'Jost', sans-serif; text-transform: uppercase; }
+      .desc { font-size: 14px; opacity: .85; max-width: 320px; }
+      .cta { display: inline-block; margin-top: 18px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
+        border: 1px solid currentColor; padding: 10px 20px; border-radius: 2px; }
+      .brand { position: fixed; top: 0; left: 0; right: 0; z-index: 5; text-align: center; padding: 26px 20px; pointer-events: none; }
+      .brand .b { font-family: 'Jost', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: 2px; color: #fff; mix-blend-mode: difference; }
+      .brand .s { font-size: 11px; letter-spacing: 4px; color: #fff; mix-blend-mode: difference; text-transform: uppercase; }
+      @media (max-width: 760px) {
+        .split { flex-direction: column; }
+        .pane { padding: 32px; }
+        .pane:hover { flex: 1; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="brand"><div class="b">KGM ASIA</div><div class="s">{site.tagline}</div></div>
+    <main class="split">
+      <a class="pane mq" href={href('mq')}>
+        <div class="bg" style={`background-image:url('${mqBg}')`}></div>
+        <div class="ov"></div>
+        <div class="in">
+          <div class="tag">Phiên bản A</div>
+          <div class="name">Dark<br />Cinematic</div>
+          <div class="desc">Phong cách MQ Studio — nền tối, ảnh phủ kín, sang trọng, điện ảnh.</div>
+          <span class="cta">Xem bản A →</span>
+        </div>
+      </a>
+      <a class="pane bda" href={href('bda')}>
+        <div class="bg" style={`background-image:url('${bdaBg}')`}></div>
+        <div class="ov"></div>
+        <div class="in">
+          <div class="tag">Phiên bản B</div>
+          <div class="name">Light<br />Minimal</div>
+          <div class="desc">Phong cách BDA Architecture — nền sáng, tối giản, thanh thoát, editorial.</div>
+          <span class="cta">Xem bản B →</span>
+        </div>
+      </a>
+    </main>
+  </body>
+</html>

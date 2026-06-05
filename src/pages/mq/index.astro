@@ -1,0 +1,49 @@
+---
+import MqLayout from '../../layouts/MqLayout.astro';
+import { heroSlides, href } from '../../lib/content.js';
+const slides = heroSlides.slice(0, 8);
+---
+<MqLayout title="Trang chủ" variant="home" active="">
+  <section class="mq-hero" id="mqHero">
+    {slides.map((s, i) => (
+      <a
+        class={`slide ${i === 0 ? 'on' : ''}`}
+        href={href(`mq/cong-trinh/${s.slug}`)}
+        style={`background-image:url('${s.img}')`}
+        data-i={i}
+        aria-label={s.name}
+      ></a>
+    ))}
+    <div class="caption" id="mqCap">
+      <div class="t" id="mqCapT">{slides[0]?.type}{slides[0]?.place ? ` · ${slides[0].place}` : ''}</div>
+      <div class="n" id="mqCapN">{slides[0]?.name}</div>
+    </div>
+  </section>
+  <div class="dots" id="mqDots">
+    {slides.map((_, i) => <button class={i === 0 ? 'on' : ''} data-i={i} aria-label={`Slide ${i + 1}`}></button>)}
+  </div>
+
+  <script define:vars={{ slides }}>
+    let i = 0;
+    const els = [...document.querySelectorAll('#mqHero .slide')];
+    const dots = [...document.querySelectorAll('#mqDots button')];
+    const capT = document.getElementById('mqCapT');
+    const capN = document.getElementById('mqCapN');
+    function show(n) {
+      i = (n + els.length) % els.length;
+      els.forEach((e, k) => e.classList.toggle('on', k === i));
+      dots.forEach((d, k) => d.classList.toggle('on', k === i));
+      const s = slides[i];
+      if (s) {
+        capT.textContent = s.type + (s.place ? ' · ' + s.place : '');
+        capN.textContent = s.name;
+      }
+    }
+    dots.forEach((d) => d.addEventListener('click', () => show(+d.dataset.i)));
+    let timer = setInterval(() => show(i + 1), 4500);
+    document.getElementById('mqDots').addEventListener('click', () => {
+      clearInterval(timer);
+      timer = setInterval(() => show(i + 1), 4500);
+    });
+  </script>
+</MqLayout>

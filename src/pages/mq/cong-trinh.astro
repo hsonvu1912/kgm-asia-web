@@ -1,0 +1,41 @@
+---
+import MqLayout from '../../layouts/MqLayout.astro';
+import { projects, projectTypes, href } from '../../lib/content.js';
+---
+<MqLayout title="Công trình" active="cong-trinh">
+  <div class="page">
+    <aside class="side" id="mqFilter">
+      <a class="active" data-k="all" href="#">Tất cả</a>
+      {projectTypes.map((t) => <a data-k={t.key} href="#">{t.name}</a>)}
+    </aside>
+    <div class="content">
+      <div class="grid2" id="mqGrid">
+        {projects.map((p) => (
+          <a class="card" data-type={p.typeKey} href={href(`mq/cong-trinh/${p.slug}`)}>
+            <div class="ph"><img src={p.cover} alt={p.name} loading="lazy" /></div>
+            <div class="cap">
+              <div class="nm">{p.name}</div>
+              <div class="mt">{p.type}{p.place ? ` · ${p.place}` : ''}</div>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const links = document.querySelectorAll('#mqFilter a');
+    const cards = document.querySelectorAll('#mqGrid .card');
+    links.forEach((l) =>
+      l.addEventListener('click', (e) => {
+        e.preventDefault();
+        links.forEach((x) => x.classList.remove('active'));
+        l.classList.add('active');
+        const k = l.dataset.k;
+        cards.forEach((c) => {
+          c.style.display = k === 'all' || c.dataset.type === k ? '' : 'none';
+        });
+      })
+    );
+  </script>
+</MqLayout>

@@ -1,0 +1,17 @@
+---
+import BdaLayout from '../../layouts/BdaLayout.astro';
+import { posts, href } from '../../lib/content.js';
+const fmt = (d) => { const t = new Date(d); return `${String(t.getDate()).padStart(2,'0')}/${String(t.getMonth()+1).padStart(2,'0')}/${t.getFullYear()}`; };
+---
+<BdaLayout title="Tin tức" active="tin-tuc">
+  <h1 class="page-h">Tin tức</h1>
+  <div class="bda-news">
+    {posts.map((p) => (
+      <a class="item" href={href(`bda/tin-tuc/${p.slug}`)}>
+        <div class="ph">{p.image && <img src={p.image} alt={p.title} loading="lazy" />}</div>
+        <div class="nm">{p.title}</div>
+        <div class="dt">{fmt(p.date)}</div>
+      </a>
+    ))}
+  </div>
+</BdaLayout>

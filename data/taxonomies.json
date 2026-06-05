@@ -1,0 +1,277 @@
+{
+  "mo_hinh_du_an": [
+    {
+      "name": "KHÁCH SẠN",
+      "slug": "khach-san",
+      "count": 30
+    },
+    {
+      "name": "CÔNG TRÌNH KHÁC",
+      "slug": "cong-trinh-khac",
+      "count": 19
+    },
+    {
+      "name": "Biệt thự",
+      "slug": "biet-thu",
+      "count": 9
+    },
+    {
+      "name": "Apartment",
+      "slug": "apartment",
+      "count": 7
+    },
+    {
+      "name": "NHÀ HÀNG, F&B",
+      "slug": "nha-hang-fb",
+      "count": 7
+    },
+    {
+      "name": "Văn phòng",
+      "slug": "van-phong",
+      "count": 2
+    }
+  ],
+  "tinh_thanh": [
+    {
+      "name": "Hà Nội",
+      "slug": "ha-noi",
+      "count": 38
+    },
+    {
+      "name": "Đà Nẵng",
+      "slug": "da-nang",
+      "count": 4
+    },
+    {
+      "name": "Hạ Long",
+      "slug": "ha-long",
+      "count": 4
+    },
+    {
+      "name": "Hội An",
+      "slug": "hoi-an",
+      "count": 4
+    },
+    {
+      "name": "Quảng Bình",
+      "slug": "quang-binh",
+      "count": 3
+    },
+    {
+      "name": "Tp Hồ Chí Minh",
+      "slug": "tp-ho-chi-minh",
+      "count": 3
+    },
+    {
+      "name": "Yên bái",
+      "slug": "yen-bai",
+      "count": 2
+    },
+    {
+      "name": "Bà Rịa-Vũng Tàu",
+      "slug": "ba-ria-vung-tau",
+      "count": 1
+    },
+    {
+      "name": "Bắc Giang",
+      "slug": "bac-giang",
+      "count": 1
+    },
+    {
+      "name": "Hải Phòng",
+      "slug": "hai-phong",
+      "count": 1
+    },
+    {
+      "name": "Hòa Bình",
+      "slug": "hoa-binh",
+      "count": 1
+    },
+    {
+      "name": "Kiên Giang",
+      "slug": "kien-giang",
+      "count": 1
+    },
+    {
+      "name": "Lạng Sơn",
+      "slug": "lang-son",
+      "count": 1
+    },
+    {
+      "name": "Lào Cai",
+      "slug": "lao-cai",
+      "count": 1
+    },
+    {
+      "name": "Ninh Bình",
+      "slug": "ninh-binh",
+      "count": 1
+    },
+    {
+      "name": "Phú Quốc",
+      "slug": "phu-quoc",
+      "count": 1
+    },
+    {
+      "name": "Phú Thọ",
+      "slug": "phu-tho",
+      "count": 1
+    },
+    {
+      "name": "Phú Yên",
+      "slug": "phu-yen",
+      "count": 1
+    },
+    {
+      "name": "Quảng Ninh",
+      "slug": "quang-ninh",
+      "count": 1
+    },
+    {
+      "name": "Vĩnh Phúc",
+      "slug": "vinh-phuc",
+      "count": 1
+    }
+  ],
+  "phong_cach": [
+    {
+      "name": "Modern",
+      "slug": "modern",
+      "count": 8
+    },
+    {
+      "name": "Contemporary",
+      "slug": "contemporary",
+      "count": 6
+    },
+    {
+      "name": "Indochine",
+      "slug": "indochine",
+      "count": 4
+    },
+    {
+      "name": "Pop Art",
+      "slug": "pop-art",
+      "count": 3
+    },
+    {
+      "name": "Art Decor",
+      "slug": "art-decor",
+      "count": 2
+    },
+    {
+      "name": "Asian Zen",
+      "slug": "asian-zen",
+      "count": 2
+    },
+    {
+      "name": "French Colonial",
+      "slug": "french-colonial",
+      "count": 2
+    },
+    {
+      "name": "Industrial",
+      "slug": "industrial",
+      "count": 2
+    },
+    {
+      "name": "Japandi",
+      "slug": "japandi",
+      "count": 2
+    },
+    {
+      "name": "Mediterranean Revival",
+      "slug": "mediterranean-revival",
+      "count": 2
+    },
+    {
+      "name": "Classic",
+      "slug": "classic",
+      "count": 1
+    },
+    {
+      "name": "Eclectic",
+      "slug": "eclectic",
+      "count": 1
+    },
+    {
+      "name": "Luxury",
+      "slug": "luxury",
+      "count": 1
+    },
+    {
+      "name": "Traditional",
+      "slug": "traditional",
+      "count": 1
+    },
+    {
+      "name": "Tropical",
+      "slug": "tropical",
+      "count": 1
+    },
+    {
+      "name": "Vintage",
+      "slug": "vintage",
+      "count": 1
+    }
+  ],
+  "quy_mo_du_an": [
+    {
+      "name": "Dưới 500m2",
+      "slug": "duoi-500m2",
+      "count": 22
+    },
+    {
+      "name": "Trên 2000m2",
+      "slug": "tren-2000m2",
+      "count": 13
+    },
+    {
+      "name": "1000m2 - 2000m2",
+      "slug": "1000m2-2000m2",
+      "count": 9
+    },
+    {
+      "name": "500m2 - 1000m2",
+      "slug": "500m2-1000m2",
+      "count": 7
+    },
+    {
+      "name": "Trên 5000m2",
+      "slug": "tren-5000m2",
+      "count": 1
+    }
+  ],
+  "product_cat": [
+    {
+      "name": "Khách sạn",
+      "slug": "khach-san",
+      "count": 30
+    },
+    {
+      "name": "Biệt thự",
+      "slug": "biet-thu",
+      "count": 16
+    },
+    {
+      "name": "Apartment",
+      "slug": "apartment",
+      "count": 10
+    },
+    {
+      "name": "CÔNG TRÌNH KHÁC",
+      "slug": "cong-trinh-khac",
+      "count": 9
+    },
+    {
+      "name": "NHÀ HÀNG, F&B",
+      "slug": "nha-hang-fb",
+      "count": 8
+    },
+    {
+      "name": "VĂN PHÒNG",
+      "slug": "van-phong",
+      "count": 2
+    }
+  ]
+}
