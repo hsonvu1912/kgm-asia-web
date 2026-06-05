@@ -1,9 +1,9 @@
 ---
 import BdaLayout from '../../layouts/BdaLayout.astro';
-import { aboutPage, companyPage, projectTypes, titleVi, cleanHtml } from '../../lib/content.js';
+import { aboutPage, companyPage, projectTypes, titleVi, cleanHtml, href } from '../../lib/content.js';
 ---
 <BdaLayout title="Về chúng tôi" active="ve-chung-toi">
-  <div class="bda-main-inner" style="max-width:720px">
+  <div style="max-width:720px">
     <div class="lbl">Tầm nhìn</div>
     <p class="lead">KGM Asia — kiến tạo những không gian sống bền vững, tinh tế và giàu bản sắc cho khách sạn, F&B và biệt thự.</p>
 
@@ -17,5 +17,8 @@ import { aboutPage, companyPage, projectTypes, titleVi, cleanHtml } from '../../
         {projectTypes.map((t) => <li>{titleVi(t.name)} ({t.count} công trình)</li>)}
       </ul>
     </div>
+
+    <div class="lbl">Thêm</div>
+    <p class="rich"><a href={href('bda/su-kien')} style="border-bottom:1px solid var(--muted)">Sự kiện →</a></p>
   </div>
 </BdaLayout>

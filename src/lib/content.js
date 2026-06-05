@@ -9,10 +9,12 @@ import site from '../../data/site.json';
 export { taxonomies, pages, site };
 
 // ---- helpers chung ----
-export const BASE = import.meta.env.BASE_URL; // vd: '/kgm-asia-web/'
+// CHUAN HOA: BASE_URL co the thieu '/' cuoi (vd '/kgm-asia-web') -> ep luon co '/'
+const RAW_BASE = import.meta.env.BASE_URL || '/';
+export const BASE = RAW_BASE.endsWith('/') ? RAW_BASE : RAW_BASE + '/';
 
-// noi base-path cho link noi bo
-export const href = (p = '') => (BASE + String(p).replace(/^\/+/, '')).replace(/([^:])\/{2,}/g, '$1/');
+// noi base-path cho link noi bo (slash-safe)
+export const href = (p = '') => BASE + String(p).replace(/^\/+/, '');
 
 // bo dau tieng Viet -> key on dinh de gom nhom
 export const slugKey = (s = '') =>

@@ -5,36 +5,35 @@ import { navFor, href } from '../lib/content.js';
 const { title = 'KGM Asia', variant = 'inner', active = '' } = Astro.props;
 const nav = navFor('bda');
 const isHome = variant === 'home';
+const logo = href('logo/logo_banner.png');
+const favicon = href('favicon.svg');
 ---
 <!doctype html>
 <html lang="vi">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <link rel="icon" type="image/svg+xml" href={favicon} />
     <title>{title} — KGM Asia</title>
     <meta name="description" content="KGM Asia — thiết kế & thi công nội thất khách sạn, F&B, biệt thự. Hơn 1000 công trình trong và ngoài nước." />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     {isHome ? (
       <header class="bda-home-bar">
-        <a class="bda-logo" href={href('bda')}>kgm<span class="x"> asia</span></a>
+        <a href={href('bda')} aria-label="KGM Asia"><img class="bda-logo-img" src={logo} alt="KGM Asia" /></a>
         <button class="bda-plus" aria-label="Menu">+</button>
       </header>
     ) : (
       <>
         <aside class="bda-side">
-          <a class="bda-logo" href={href('bda')}>kgm<span class="x"> asia</span></a>
+          <a href={href('bda')} aria-label="KGM Asia"><img class="bda-logo-img" src={logo} alt="KGM Asia" /></a>
           <nav class="bda-nav">
             {nav.map((n) => <a href={n.url} class={active === n.path ? 'active' : ''}>{n.label}</a>)}
           </nav>
           <Social />
         </aside>
         <header class="bda-topbar">
-          <a class="bda-logo" href={href('bda')} style="font-size:24px">kgm<span class="x"> asia</span></a>
+          <a href={href('bda')} aria-label="KGM Asia"><img class="bda-logo-img" src={logo} alt="KGM Asia" style="height:26px" /></a>
           <button class="bda-plus" aria-label="Menu">+</button>
         </header>
       </>
@@ -42,7 +41,7 @@ const isHome = variant === 'home';
 
     <div class="bda-menu" id="bdaMenu">
       <div class="top">
-        <a class="bda-logo" href={href('bda')}>kgm<span class="x"> asia</span></a>
+        <a href={href('bda')} aria-label="KGM Asia"><img class="bda-logo-img" src={logo} alt="KGM Asia" /></a>
         <button class="close" id="bdaClose" aria-label="Đóng">×</button>
       </div>
       <nav>

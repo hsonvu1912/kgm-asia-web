@@ -1,0 +1,12 @@
+---
+import BdaLayout from '../../layouts/BdaLayout.astro';
+import { page, cleanHtml } from '../../lib/content.js';
+const ev = page('su-kien');
+---
+<BdaLayout title="Sự kiện" active="">
+  <div style="max-width:720px">
+    <div class="lbl">Sự kiện</div>
+    <p class="lead">Hoạt động & sự kiện của KGM Asia.</p>
+    {ev && <div class="rich" set:html={cleanHtml(ev.html)} />}
+  </div>
+</BdaLayout>

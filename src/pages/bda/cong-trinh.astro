@@ -6,7 +6,7 @@ import { projects, projectTypes, titleVi, href } from '../../lib/content.js';
   <h1 class="page-h">Công trình</h1>
   <div class="works-head">
     <span class="fil" id="bdaFilter">
-      <span style="color:var(--muted2)">Lọc theo loại:</span>
+      <span class="lab">Lọc theo loại:</span>
       <a class="active" data-k="all" href="#">Tất cả</a>
       {projectTypes.map((t) => <a data-k={t.key} href="#">{titleVi(t.name)}</a>)}
     </span>

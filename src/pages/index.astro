@@ -8,7 +8,7 @@ const bdaBg = featured[3]?.cover || featured[1]?.cover || '';
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/svg+xml" href={`${import.meta.env.BASE_URL}favicon.svg`} />
+    <link rel="icon" type="image/svg+xml" href={href('favicon.svg')} />
     <title>KGM Asia — Chọn phiên bản giao diện</title>
     <meta name="description" content="KGM Asia — 2 phiên bản giao diện portfolio để lựa chọn." />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -35,9 +35,8 @@ const bdaBg = featured[3]?.cover || featured[1]?.cover || '';
       .desc { font-size: 14px; opacity: .85; max-width: 320px; }
       .cta { display: inline-block; margin-top: 18px; font-size: 13px; letter-spacing: 1px; text-transform: uppercase;
         border: 1px solid currentColor; padding: 10px 20px; border-radius: 2px; }
-      .brand { position: fixed; top: 0; left: 0; right: 0; z-index: 5; text-align: center; padding: 26px 20px; pointer-events: none; }
-      .brand .b { font-family: 'Jost', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: 2px; color: #fff; mix-blend-mode: difference; }
-      .brand .s { font-size: 11px; letter-spacing: 4px; color: #fff; mix-blend-mode: difference; text-transform: uppercase; }
+      .brand { position: fixed; top: 0; left: 0; right: 0; z-index: 5; text-align: center; padding: 24px 20px; pointer-events: none; }
+      .brand img { height: 48px; width: auto; margin: 0 auto; filter: drop-shadow(0 2px 10px rgba(0,0,0,.45)); }
       @media (max-width: 760px) {
         .split { flex-direction: column; }
         .pane { padding: 32px; }
@@ -46,7 +45,7 @@ const bdaBg = featured[3]?.cover || featured[1]?.cover || '';
     </style>
   </head>
   <body>
-    <div class="brand"><div class="b">KGM ASIA</div><div class="s">{site.tagline}</div></div>
+    <div class="brand"><img src={href('logo/logo_banner.png')} alt="KGM Asia" /></div>
     <main class="split">
       <a class="pane mq" href={href('mq')}>
         <div class="bg" style={`background-image:url('${mqBg}')`}></div>
