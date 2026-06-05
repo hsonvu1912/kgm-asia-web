@@ -47,11 +47,16 @@ async function getAll(path, perPage = 100) {
 
 const decode = (s = '') =>
   s
-    .replace(/&#8217;|&#8216;|&#039;|&#39;/g, "'")
-    .replace(/&#8220;|&#8221;|&quot;/g, '"')
-    .replace(/&#8211;|&#8212;/g, '–')
-    .replace(/&hellip;/g, '…')
+    // entity so & hex (vd &#038; -> &, &#8217; -> ')
+    .replace(/&#(\d+);/g, (_, n) => { try { return String.fromCodePoint(+n); } catch { return ''; } })
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => { try { return String.fromCodePoint(parseInt(h, 16)); } catch { return ''; } })
+    // named pho bien
     .replace(/&amp;/g, '&')
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&hellip;/g, '…')
+    .replace(/&ndash;/g, '–')
+    .replace(/&mdash;/g, '—')
     .replace(/&nbsp;/g, ' ')
     .replace(/&lt;/g, '<')
     .replace(/&gt;/g, '>');
