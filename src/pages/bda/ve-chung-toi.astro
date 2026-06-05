@@ -3,45 +3,53 @@ import BdaLayout from '../../layouts/BdaLayout.astro';
 import { cleanParagraphs, projectTypes, titleVi, recentPosts, featured, href, site } from '../../lib/content.js';
 const intro = cleanParagraphs('xay-nha-tron-goi', { max: 2 });
 const services = cleanParagraphs('dich-vu', { max: 2 });
-const jobs = cleanParagraphs('tuyen-dung-3', { max: 3 });
-const news = recentPosts(6);
+const jobsRaw = cleanParagraphs('tuyen-dung-3', { max: 8 });
+const jobTitles = [...new Set(
+  jobsRaw.map((j) => (j.match(/Vị trí:\s*(.+?)\s+(?:II\.|Số lượng|–|\.|$)/i) || [])[1]).filter(Boolean).map((s) => s.trim())
+)];
+const news = recentPosts(8);
 const heroImg = (featured.find((p) => /khach|hotel|phú quốc|phu quoc/i.test(p.name)) || featured[1] || featured[0])?.cover;
-const fmt = (d) => { const t = new Date(d); return `${String(t.getDate()).padStart(2,'0')}/${String(t.getMonth()+1).padStart(2,'0')}/${t.getFullYear()}`; };
+const fmt = (d) => { const t = new Date(d); return `${String(t.getDate()).padStart(2,'0')}.${String(t.getMonth()+1).padStart(2,'0')}.${t.getFullYear()}`; };
 ---
 <BdaLayout title="Về chúng tôi" active="ve-chung-toi">
   <div class="practice">
     <div class="lbl">Tầm nhìn</div>
-    <p class="lead">KGM Asia — kiến tạo những không gian sống bền vững, tinh tế và giàu bản sắc cho khách sạn, F&B và biệt thự.</p>
+    <p class="lead">KGM Asia — kiến tạo những không gian sống bền vững, tinh tế và giàu bản sắc cho khách sạn, F&amp;B và biệt thự.</p>
 
     <div class="lbl">Giới thiệu</div>
-    <div class="rich">{intro.map((p) => <p>{p}</p>)}</div>
+    <div class="rich narrow">{intro.map((p) => <p>{p}</p>)}</div>
     {heroImg && <img class="about-hero" src={heroImg} alt="Công trình KGM Asia" loading="lazy" />}
 
-    <div class="lbl">Năng lực</div>
-    <div class="rich"><ul>{projectTypes.map((t) => <li>{titleVi(t.name)} — {t.count} công trình</li>)}</ul></div>
-
-    <div class="lbl">Lĩnh vực</div>
-    <div class="studios">Kiến trúc<br />Nội thất<br />Cảnh quan</div>
+    <div class="two-col">
+      <div>
+        <div class="lbl">Năng lực</div>
+        <ul class="caps">{projectTypes.map((t) => <li>{titleVi(t.name)}</li>)}</ul>
+      </div>
+      <div>
+        <div class="lbl">Lĩnh vực</div>
+        <div class="studios">Kiến trúc<br />Nội thất<br />Cảnh quan</div>
+      </div>
+    </div>
 
     <div class="lbl">Dịch vụ</div>
-    <div class="rich">{services.map((p) => <p>{p}</p>)}</div>
+    <div class="rich narrow">{services.map((p) => <p>{p}</p>)}</div>
 
     <div class="lbl">Tuyển dụng</div>
-    {jobs.length > 0 && <div class="rich">{jobs.map((p) => <p>{p}</p>)}</div>}
-    <p class="rich">Gửi hồ sơ: <a href={`mailto:${site.email}`}>{site.email}</a> · {site.phone}</p>
-  </div>
-
-  <div class="practice-news">
-    <div class="lbl">Tin tức</div>
-    <div class="bda-news">
-      {news.map((p) => (
-        <a class="item" href={href(`bda/tin-tuc/${p.slug}`)}>
-          <div class="ph">{p.image && <img src={p.image} alt={p.title} loading="lazy" />}</div>
-          <div class="nm">{p.title}</div>
-          <div class="dt">{fmt(p.date)}</div>
-        </a>
-      ))}
+    <div class="rich narrow">
+      {jobTitles.length > 0 && <p>Vị trí đang tuyển: {jobTitles.join(' · ')}.</p>}
+      <p>Gửi hồ sơ về <a href={`mailto:${site.email}`}>{site.email}</a> · {site.phone}</p>
     </div>
-    <p class="rich" style="margin-top:12px"><a href={href('bda/tin-tuc')} style="border-bottom:1px solid var(--muted)">Xem tất cả tin tức →</a></p>
+
+    <div class="lbl">Tin tức</div>
+    <ul class="news-list">
+      {news.map((p) => (
+        <li>
+          <a href={href(`bda/tin-tuc/${p.slug}`)}>
+            <span class="nt">{p.title}</span><span class="nd">{fmt(p.date)}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+    <p class="seeall"><a href={href('bda/tin-tuc')}>Xem tất cả tin tức →</a></p>
   </div>
 </BdaLayout>
