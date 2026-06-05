@@ -7,8 +7,9 @@
   --cream: #f4f3ef;
   --bg: #ffffff;
   --side-w: 250px;
-  /* đúng font-stack ref — đa số máy fallback Arial/Helvetica như bdaarch */
-  --font: 'Swiss721 BT', Arial, Helvetica, 'Helvetica Neue', sans-serif;
+  /* BDA ref tải web font Swiss721 BT (Helvetica của Bitstream). Ưu tiên Helvetica Neue/Helvetica
+     (có sẵn trên Mac, gần như y hệt Swiss721) TRƯỚC Arial để không bị Arial xấu. */
+  --font: 'Swiss721 BT', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 * { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
