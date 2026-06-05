@@ -1,20 +1,20 @@
 ---
 import MqLayout from '../../layouts/MqLayout.astro';
 import AboutSide from '../../components/mq/AboutSide.astro';
-import { aboutPage, projectTypes, cleanHtml } from '../../lib/content.js';
+import { cleanParagraphs, featured } from '../../lib/content.js';
+const intro = cleanParagraphs('xay-nha-tron-goi', { max: 3 });
+const philosophy = cleanParagraphs('dich-vu', { max: 2 });
+const heroImg = (featured.find((p) => /khach|hotel|phú quốc|phu quoc/i.test(p.name)) || featured[0])?.cover;
 ---
 <MqLayout title="Về chúng tôi" active="ve-chung-toi">
   <div class="page">
     <AboutSide active="ve-chung-toi" />
     <div class="content">
-      <h1 class="h-sec">Về chúng tôi</h1>
-      {aboutPage && <div class="rich" set:html={cleanHtml(aboutPage.html)} />}
-      <h2 class="h-sec" style="margin-top:36px">Năng lực</h2>
-      <div class="rich">
-        <ul>
-          {projectTypes.map((t) => <li>{t.name} — {t.count} công trình</li>)}
-        </ul>
-      </div>
+      <h1 class="h-sec">Hồ sơ công ty</h1>
+      <div class="rich">{intro.map((p) => <p>{p}</p>)}</div>
+      <h2 class="h-sec" style="margin-top:36px">Triết lý thiết kế</h2>
+      <div class="rich">{philosophy.map((p) => <p>{p}</p>)}</div>
+      {heroImg && <img class="about-hero" src={heroImg} alt="Công trình KGM Asia" loading="lazy" />}
     </div>
   </div>
 </MqLayout>

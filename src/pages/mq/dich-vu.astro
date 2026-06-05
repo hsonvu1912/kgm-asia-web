@@ -1,15 +1,20 @@
 ---
 import MqLayout from '../../layouts/MqLayout.astro';
 import AboutSide from '../../components/mq/AboutSide.astro';
-import { servicesPage, servicesDetail, cleanHtml } from '../../lib/content.js';
+import { cleanParagraphs, featured } from '../../lib/content.js';
+const services = cleanParagraphs('dich-vu', { max: 4 });
+const villa = cleanParagraphs('thiet-ke-cong-trinh', { max: 4 });
+const img = (featured[2] || featured[0])?.cover;
 ---
 <MqLayout title="Dịch vụ" active="ve-chung-toi">
   <div class="page">
     <AboutSide active="dich-vu" />
     <div class="content">
       <h1 class="h-sec">Dịch vụ</h1>
-      {servicesPage && <div class="rich" set:html={cleanHtml(servicesPage.html)} />}
-      {servicesDetail && <div class="rich" set:html={cleanHtml(servicesDetail.html)} />}
+      <div class="rich">{services.map((p) => <p>{p}</p>)}</div>
+      {img && <img class="about-hero" src={img} alt="Công trình KGM Asia" loading="lazy" />}
+      <h2 class="h-sec" style="margin-top:36px">Thiết kế công trình</h2>
+      <div class="rich">{villa.map((p) => <p>{p}</p>)}</div>
     </div>
   </div>
 </MqLayout>

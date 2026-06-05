@@ -1,21 +1,17 @@
 ---
 import MqLayout from '../../layouts/MqLayout.astro';
 import AboutSide from '../../components/mq/AboutSide.astro';
-import { recruitPage, cleanHtml, site } from '../../lib/content.js';
+import { cleanParagraphs, site } from '../../lib/content.js';
+const jobs = cleanParagraphs('tuyen-dung-3', { max: 6 });
 ---
 <MqLayout title="Tuyển dụng" active="ve-chung-toi">
   <div class="page">
     <AboutSide active="tuyen-dung" />
     <div class="content">
       <h1 class="h-sec">Tuyển dụng</h1>
-      {recruitPage && recruitPage.text.length > 60 ? (
-        <div class="rich" set:html={cleanHtml(recruitPage.html)} />
-      ) : (
-        <div class="rich">
-          <p>KGM Asia luôn chào đón những cộng sự đam mê kiến trúc, nội thất và cảnh quan. Gửi hồ sơ về:</p>
-          <p>Email: <a href={`mailto:${site.email}`}><b>{site.email}</b></a><br />Hotline: {site.phone}</p>
-        </div>
-      )}
+      <p class="rich">KGM Asia luôn chào đón những cộng sự đam mê kiến trúc, nội thất và cảnh quan.</p>
+      {jobs.length > 0 && <div class="rich">{jobs.map((p) => <p>{p}</p>)}</div>}
+      <p class="rich" style="margin-top:18px">Gửi hồ sơ về <a href={`mailto:${site.email}`}><b>{site.email}</b></a> · Hotline {site.phone}</p>
     </div>
   </div>
 </MqLayout>

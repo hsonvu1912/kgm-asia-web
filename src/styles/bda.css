@@ -100,6 +100,10 @@ a { color: inherit; text-decoration: none; }
 .team { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px 22px; max-width: 720px; }
 .team .ph { aspect-ratio: 1; background: #eee; overflow: hidden; filter: grayscale(1); }
 .team .ph img { width: 100%; height: 100%; object-fit: cover; }
+.practice { max-width: 720px; }
+.practice-news { max-width: 860px; margin-top: 6px; }
+.studios { font-size: 24px; line-height: 1.5; color: var(--ink); }
+.about-hero { width: 100%; margin: 20px 0 4px; display: block; }
 
 /* ---------- contact ---------- */
 .contact-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; max-width: 720px; }

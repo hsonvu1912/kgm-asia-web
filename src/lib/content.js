@@ -162,3 +162,37 @@ export function cleanHtml(html = '') {
 }
 
 export const mapEmbedUrl = `https://www.google.com/maps?q=${encodeURIComponent(site.mapQuery)}&output=embed`;
+
+// ---- TEXT SACH: lay paragraph thuan tu trang WP (bo anh/style/the), chan brand la ----
+const BAD_BRANDS = /kim\s*home|kim\s*s[oơ]n|hitach/i;
+
+function decodeEntities(s = '') {
+  return s
+    .replace(/&#(\d+);/g, (_, n) => { try { return String.fromCodePoint(+n); } catch { return ''; } })
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => { try { return String.fromCodePoint(parseInt(h, 16)); } catch { return ''; } })
+    .replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&nbsp;/g, ' ')
+    .replace(/&lt;/g, '<').replace(/&gt;/g, '>')
+    .replace(/&hellip;/g, '…').replace(/&ndash;/g, '–').replace(/&mdash;/g, '—');
+}
+
+// Lay cac doan van sach (chi chu) tu <p>/<li> cua 1 trang; bo doan rac/brand la; chong trung.
+export function cleanParagraphs(slug, { max = 99, minLen = 30 } = {}) {
+  const html = pages[slug]?.html || '';
+  const seen = new Set();
+  const out = [];
+  for (const m of html.matchAll(/<(p|li)\b[^>]*>([\s\S]*?)<\/\1>/gi)) {
+    const t = decodeEntities(m[2].replace(/<[^>]+>/g, ' ')).replace(/\s+/g, ' ').trim();
+    if (t.length < minLen) continue;
+    if (/[{}]|@media|^#[\w-]+\b|:\s*-?\d+px|rgb\(/i.test(t)) continue; // bo CSS Flatsome nhung trong <p>
+    if (BAD_BRANDS.test(t)) continue;
+    const key = t.slice(0, 40).toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(t);
+    if (out.length >= max) break;
+  }
+  return out;
+}
+
+// kiem tra 1 chuoi co dinh brand la khong (de guard)
+export const hasBadBrand = (s = '') => BAD_BRANDS.test(s);
